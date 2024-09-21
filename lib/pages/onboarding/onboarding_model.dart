@@ -19,6 +19,10 @@ class OnboardingModel extends FlutterFlowModel<OnboardingWidget> {
   FocusNode? nameTextFocusNode;
   TextEditingController? nameTextTextController;
   String? Function(BuildContext, String?)? nameTextTextControllerValidator;
+  // State field(s) for InstagramText widget.
+  FocusNode? instagramTextFocusNode;
+  TextEditingController? instagramTextTextController;
+  String? Function(BuildContext, String?)? instagramTextTextControllerValidator;
   DateTime? datePicked;
 
   @override
@@ -28,5 +32,8 @@ class OnboardingModel extends FlutterFlowModel<OnboardingWidget> {
   void dispose() {
     nameTextFocusNode?.dispose();
     nameTextTextController?.dispose();
+
+    instagramTextFocusNode?.dispose();
+    instagramTextTextController?.dispose();
   }
 }
