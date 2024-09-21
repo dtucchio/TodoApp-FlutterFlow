@@ -32,6 +32,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
         TextEditingController(text: currentUserDisplayName);
     _model.nameTextFocusNode ??= FocusNode();
 
+    _model.instagramTextTextController ??= TextEditingController(
+        text: valueOrDefault(currentUserDocument?.instagram, ''));
+    _model.instagramTextFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -337,6 +341,99 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         ),
                       ),
                       AuthUserStreamWidget(
+                        builder: (context) => SizedBox(
+                          width: double.infinity,
+                          child: TextFormField(
+                            controller: _model.instagramTextTextController,
+                            focusNode: _model.instagramTextFocusNode,
+                            onChanged: (_) => EasyDebounce.debounce(
+                              '_model.instagramTextTextController',
+                              const Duration(milliseconds: 2000),
+                              () => safeSetState(() {}),
+                            ),
+                            autofocus: false,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              hintText: 'Instagram Account',
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(24.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(24.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(24.0),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(24.0),
+                              ),
+                              filled: true,
+                              fillColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 26.0, 24.0, 26.0),
+                              suffixIcon: _model.instagramTextTextController!
+                                      .text.isNotEmpty
+                                  ? InkWell(
+                                      onTap: () async {
+                                        _model.instagramTextTextController
+                                            ?.clear();
+                                        safeSetState(() {});
+                                      },
+                                      child: const Icon(
+                                        Icons.clear,
+                                        size: 24.0,
+                                      ),
+                                    )
+                                  : null,
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                            keyboardType: TextInputType.name,
+                            cursorColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            validator: _model
+                                .instagramTextTextControllerValidator
+                                .asValidator(context),
+                          ),
+                        ),
+                      ),
+                      AuthUserStreamWidget(
                         builder: (context) => FFButtonWidget(
                           onPressed: () async {
                             final datePickedDate = await showDatePicker(
@@ -429,6 +526,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                     await currentUserReference!.update(createUsersRecordData(
                       displayName: _model.nameTextTextController.text,
                       birthday: _model.datePicked,
+                      instagram: _model.instagramTextTextController.text,
                     ));
 
                     context.goNamed('tasks');
