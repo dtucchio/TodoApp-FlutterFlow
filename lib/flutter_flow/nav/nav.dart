@@ -90,17 +90,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'tasks',
           path: '/tasks',
+          requireAuth: true,
           builder: (context, params) =>
               params.isEmpty ? const NavBarPage(initialPage: 'tasks') : const TasksWidget(),
         ),
         FFRoute(
           name: 'onboarding',
           path: '/onboarding',
+          requireAuth: true,
           builder: (context, params) => const OnboardingWidget(),
         ),
         FFRoute(
           name: 'completedTasks',
           path: '/completedTasks',
+          requireAuth: true,
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'completedTasks')
               : const CompletedTasksWidget(),
@@ -108,6 +111,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'details',
           path: '/details',
+          requireAuth: true,
           asyncParams: {
             'taskDocument': getDoc(['tasks'], TasksRecord.fromSnapshot),
           },
@@ -117,6 +121,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.Document,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'accountManager',
+          path: '/accountManager',
+          requireAuth: true,
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'accountManager')
+              : const AccountManagerWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

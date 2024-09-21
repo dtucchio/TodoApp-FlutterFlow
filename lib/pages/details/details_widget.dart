@@ -281,54 +281,55 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                               .asValidator(context),
                         ),
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            if (_model.editingMode) {
-                              await widget.taskDocument!.reference
-                                  .update(createTasksRecordData(
-                                title: valueOrDefault<String>(
-                                  _model.taskTitleTextController.text,
-                                  'Default Task',
-                                ),
-                                details: valueOrDefault<String>(
-                                  _model.taskDescriptionTextController.text,
-                                  'Default Task Description',
-                                ),
-                              ));
-                              _model.editingMode = false;
-                              safeSetState(() {});
-                            } else {
-                              return;
-                            }
-                          },
-                          text: 'Update Task',
-                          options: FFButtonOptions(
-                            width: double.infinity,
-                            height: 70.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  letterSpacing: 0.0,
-                                ),
-                            elevation: 0.0,
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primaryText,
+                      if (_model.editingMode)
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 12.0, 0.0, 0.0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              if (_model.editingMode) {
+                                await widget.taskDocument!.reference
+                                    .update(createTasksRecordData(
+                                  title: valueOrDefault<String>(
+                                    _model.taskTitleTextController.text,
+                                    'Default Task',
+                                  ),
+                                  details: valueOrDefault<String>(
+                                    _model.taskDescriptionTextController.text,
+                                    'Default Task Description',
+                                  ),
+                                ));
+                                _model.editingMode = false;
+                                safeSetState(() {});
+                              } else {
+                                return;
+                              }
+                            },
+                            text: 'Update Task',
+                            options: FFButtonOptions(
+                              width: double.infinity,
+                              height: 70.0,
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).primary,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    letterSpacing: 0.0,
+                                  ),
+                              elevation: 0.0,
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                              borderRadius: BorderRadius.circular(24.0),
                             ),
-                            borderRadius: BorderRadius.circular(24.0),
                           ),
                         ),
-                      ),
                     ].divide(const SizedBox(height: 12.0)),
                   ),
                 ),
