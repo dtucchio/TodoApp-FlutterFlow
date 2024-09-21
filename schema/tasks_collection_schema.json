@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "properties": {
+    "completed": {
+      "type": "boolean",
+      "description": "Status of the task completion (true for completed, false for incomplete)"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of when the task was created"
+    },
+    "details": {
+      "type": "string",
+      "description": "Details or description of the task"
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the task"
+    },
+    "user": {
+      "type": "string",
+      "description": "Reference to the user document (/users/{userId})"
+    }
+  },
+  "required": ["completed", "created", "title", "user"]
+}
