@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -752,8 +753,36 @@ class _LoginWidgetState extends State<LoginWidget>
                                     createdTime: getCurrentTimestamp,
                                   ));
 
+                              _model.apiEmailResponse =
+                                  await SendEmailToUserCall.call(
+                                to: _model.signupEmailTextController.text,
+                                subject: 'Todo App Account Created',
+                                text:
+                                    'Welcome to Todo App! An account has been created with this email address.',
+                              );
+
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: const Text('Account Created'),
+                                    content: const Text(
+                                        'A verification email has been sent to your address.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: const Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
                               context.goNamedAuth(
                                   'onboarding', context.mounted);
+
+                              safeSetState(() {});
                             },
                             text: 'Submit',
                             options: FFButtonOptions(
